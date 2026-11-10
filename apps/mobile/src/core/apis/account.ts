@@ -111,6 +111,7 @@ export async function getAllAccountsToDisplay() {
             ...account,
             address: account.address.toLowerCase(),
             type: item.type,
+            keyringId: item.keyringId,
             byImport: item.byImport,
             aliasName:
               allAliasNames[account?.address?.toLowerCase()]?.alias || '',

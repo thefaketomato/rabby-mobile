@@ -1463,6 +1463,7 @@
       "backupFailed": "Pencadangan gagal, silakan coba lagi",
       "delete-desc-needpassword": "Sebelum Anda menghapus, ingatlah poin-poin berikut untuk memahami cara melindungi aset Anda.",
       "source": "Sumber",
+      "wallet": "Wallet",
       "hd-path": "HD Path",
       "address": "Alamat",
       "admins": "Admin",

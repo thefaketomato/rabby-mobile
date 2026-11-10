@@ -42,6 +42,8 @@ export class DisplayKeyring {
 
 export type DisplayedKeyring = {
   type: string & KeyringTypeName;
+  /** Stable wallet id for keyrings that support multiple devices/wallets. */
+  keyringId?: string;
   accounts: {
     address: string;
     brandName: string & KeyringTypeName;

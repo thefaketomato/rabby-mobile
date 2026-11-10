@@ -1507,6 +1507,7 @@
       "address": "Address",
       "assets": "Assets",
       "source": "Source",
+      "wallet": "Wallet",
       "hd-path": "HD Path",
       "manage-addresses-under-this-seed-phrase": "Add wallet from this seed phrase",
       "basicInfo": "Basic Info",

@@ -54,11 +54,20 @@ export const AddressAssetsItem: React.FC<AddressInfoProps> = props => {
   const hdPathValue = accountInfo
     ? `${accountInfo.hdPathTypeLabel} #${accountInfo.index}`
     : fallbackHdPathValue;
+  const walletValue = accountInfo?.walletName
+    ? [accountInfo.walletName, accountInfo.deviceFingerprint?.toUpperCase()]
+        .filter(Boolean)
+        .join(' · ')
+    : '';
 
   return (
     <Card style={styles.card}>
       <Item label={t('page.addressDetail.assets')} value={useValue} />
       <Item label={t('page.addressDetail.source')} value={source} />
+
+      {walletValue ? (
+        <Item label={t('page.addressDetail.wallet')} value={walletValue} />
+      ) : null}
 
       {account.type === KEYRING_TYPE.HdKeyring && (
         <Item style={styles.subItemView}>

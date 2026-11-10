@@ -1614,6 +1614,7 @@
       "address": "Dirección",
       "pin-in-list": "Fijar en la lista",
       "source": "Fuente",
+      "wallet": "Wallet",
       "delete-desc-needpassword": "Antes de eliminar, tenga en cuenta los siguientes puntos para entender cómo proteger sus activos.",
       "backup-private-key": "Copia de seguridad de la clave privada",
       "add-to-whitelist": "Añadir a la lista de permisos",

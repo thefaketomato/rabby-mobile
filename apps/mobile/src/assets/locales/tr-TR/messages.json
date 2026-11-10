@@ -1464,6 +1464,7 @@
       "backup-private-key": "Özel Anahtarı Yedekle",
       "assets": "Varlıklar",
       "source": "Kaynak",
+      "wallet": "Wallet",
       "hd-path": "HD Path",
       "admins": "Yöneticiler",
       "address": "Adres",

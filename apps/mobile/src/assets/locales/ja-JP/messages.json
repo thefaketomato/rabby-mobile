@@ -1444,6 +1444,7 @@
       "add-to-whitelist": "ホワイトリストに追加",
       "pin-in-list": "リストにピン留めする",
       "source": "ソース",
+      "wallet": "Wallet",
       "backup-private-key": "秘密鍵をバックアップ",
       "address": "アドレス",
       "watchAddressListScreen": {

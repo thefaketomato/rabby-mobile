@@ -1735,6 +1735,7 @@
         "addWatchAddress": "Adicionar carteiras só de leitura"
       },
       "source": "Fonte",
+      "wallet": "Wallet",
       "backup-private-key": "Criar cópia de segurança da chave privada",
       "delete-desc-needpassword": "Antes de eliminar, tenha em conta os seguintes pontos para saber como proteger os seus ativos.",
       "addressListScreen": {

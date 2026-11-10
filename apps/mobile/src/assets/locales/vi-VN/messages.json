@@ -1517,6 +1517,7 @@
       "backupFailed": "Sao lưu thất bại, vui lòng thử lại",
       "address": "Địa chỉ",
       "source": "Nguồn",
+      "wallet": "Wallet",
       "watchAddressListScreen": {
         "addWatchAddress": "Thêm ví chỉ xem"
       },

@@ -1617,6 +1617,7 @@
         "addSafeAddress": "添加 Safe 钱包"
       },
       "source": "来源",
+      "wallet": "Wallet",
       "delete-desc-needpassword": "删除前，请务必了解以下资产安全须知",
       "add-to-whitelist": "添加到白名单",
       "addressListScreen": {

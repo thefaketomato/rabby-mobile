@@ -1278,6 +1278,7 @@
       "backup-seed-phrase": "สำรอง Seed Phrase",
       "backupFailed": "สำรองข้อมูลไม่สำเร็จ โปรดลองอีกครั้ง",
       "source": "แหล่งที่มา",
+      "wallet": "Wallet",
       "hd-path": "HD Path",
       "watchAddressListScreen": {
         "addWatchAddress": "เพิ่มกระเป๋าเงินแบบดูเฉพาะ"

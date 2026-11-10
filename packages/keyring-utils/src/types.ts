@@ -76,6 +76,8 @@ export type KeyringAccount = {
   address: string;
   brandName: string;
   type: KeyringTypeName;
+  /** Stable wallet id for keyrings that support multiple devices/wallets. */
+  keyringId?: string;
   realBrandName?: string;
   realBrandUrl?: string;
   hdPathBasePublicKey?: string;

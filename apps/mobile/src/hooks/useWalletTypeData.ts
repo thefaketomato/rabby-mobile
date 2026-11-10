@@ -1,4 +1,5 @@
-import { apiKeyring } from '@/core/apis';
+import { apiKeyring, apiKeystone } from '@/core/apis';
+import { groupKeystoneWalletAccounts } from './keystoneWalletGroups';
 import { keyringServiceApi } from '@/core/serviceApi/keyring';
 import { useAccounts, usePinAddresses } from '@/hooks/account';
 import type { IDisplayedAccountWithBalance } from '@/hooks/accountToDisplay';
@@ -7,6 +8,7 @@ import { sortAccountsByBalance } from '@/utils/account';
 import i18n from '@/utils/i18n';
 import { WALLET_INFO } from '@/utils/walletInfo';
 import {
+  HARDWARE_KEYRING_TYPES,
   KEYRING_CLASS,
   KEYRING_TYPE,
   WALLET_NAME,
@@ -28,6 +30,7 @@ export type TypeKeyringGroup = {
   index?: number;
   list: DisplayedAccount[];
   type: string;
+  keyringId?: string;
   brandName?: string;
   publicKey?: string;
   hdPathBasePublicKey?: string;
@@ -220,17 +223,46 @@ export const useWalletTypeData = () => {
       .sort((a, b) => b.length - a.length)
       .map(item => getTypeGroup(item)) as TypeKeyringGroup[];
 
+    const keystoneBrand = HARDWARE_KEYRING_TYPES.Keystone.brandName;
+    const keystoneAccounts = (walletGroup[keystoneBrand] ||
+      []) as DisplayedAccount[];
+    let keystoneList: TypeKeyringGroup[] = [];
+
+    if (keystoneAccounts.length) {
+      const walletNameById = new Map<string, string>();
+      try {
+        const keystoneWallets = await apiKeystone.getWallets();
+        keystoneWallets.forEach(wallet => {
+          walletNameById.set(wallet.walletId, wallet.name);
+        });
+      } catch (err) {
+        console.error('Failed to load Keystone wallets', err);
+      }
+      keystoneList = groupKeystoneWalletAccounts(
+        keystoneAccounts,
+        walletNameById,
+      ).map(group => {
+        const base = getTypeGroup(group.list);
+        return {
+          ...base,
+          keyringId: group.keyringId,
+          name: group.name || base.name,
+        };
+      });
+    }
+
     const v = (
       Object.values({
         ...omit(walletGroup, [
           KEYRING_TYPE.WatchAddressKeyring,
           KEYRING_TYPE.HdKeyring,
           KEYRING_CLASS.HARDWARE.LEDGER,
+          keystoneBrand,
         ]),
       }) as DisplayedAccount[][]
     ).map(item => [getTypeGroup(item)]);
 
-    v.push(hdKeyRingList, ledgerList);
+    v.push(hdKeyRingList, ledgerList, keystoneList);
 
     v.sort((a, b) => getWalletScore(a) - getWalletScore(b));
 
@@ -249,13 +281,23 @@ export const useWalletTypeData = () => {
     if (list.length && sortedRef.current === false) {
       sortedRef.current = true;
       sortIdList.current = list.map(
-        e => e.type + e.brandName + e.hdPathBasePublicKey + e.publicKey,
+        e =>
+          e.type +
+          e.brandName +
+          (e.keyringId || '') +
+          e.hdPathBasePublicKey +
+          e.publicKey,
       );
     }
 
     const result = list.reduce((pre, cur) => {
-      pre[cur.type + cur.brandName + cur.hdPathBasePublicKey + cur.publicKey] =
-        cur;
+      pre[
+        cur.type +
+          cur.brandName +
+          (cur.keyringId || '') +
+          cur.hdPathBasePublicKey +
+          cur.publicKey
+      ] = cur;
       return pre;
     }, {} as Record<string, (typeof list)[number]>);
 

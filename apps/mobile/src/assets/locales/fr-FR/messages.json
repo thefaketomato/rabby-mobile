@@ -1091,6 +1091,7 @@
     },
     "addressDetail": {
       "source": "Source",
+      "wallet": "Wallet",
       "address": "Adresse",
       "admins": "Administrateurs",
       "assets": "Actifs",

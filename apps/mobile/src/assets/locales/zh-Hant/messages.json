@@ -1995,6 +1995,7 @@
       "hd-path": "HD Path",
       "add-to-whitelist": "新增到白名單",
       "source": "來源",
+      "wallet": "Wallet",
       "manage-addresses-under-this-seed-phrase": "從這組助記詞新增錢包",
       "delete-address": "刪除錢包",
       "delete-desc": "您確定要刪除這個錢包嗎？",

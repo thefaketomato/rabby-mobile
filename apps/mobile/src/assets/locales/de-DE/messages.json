@@ -1656,6 +1656,7 @@
         "addSafeAddress": "Safe-Wallets hinzufügen"
       },
       "source": "Quelle",
+      "wallet": "Wallet",
       "addressListScreen": {
         "pin": "PIN",
         "detail": "Einzelheiten",
