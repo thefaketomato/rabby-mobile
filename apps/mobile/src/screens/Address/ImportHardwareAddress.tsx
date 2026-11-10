@@ -14,7 +14,8 @@ import {
 import { apiTrezor } from '@/core/apis';
 import NormalScreenContainer2024 from '@/components2024/ScreenContainer/NormalScreenContainer';
 import { keyringServiceApi } from '@/core/serviceApi/keyring';
-import { useFocusEffect } from '@react-navigation/native';
+import { useFocusEffect, useRoute } from '@react-navigation/native';
+import type { GetNestedScreenRouteProp } from '@/navigation-type';
 import { navigate } from '@/utils/navigation';
 import { RootNames } from '@/constant/layout';
 import { useAtom } from 'jotai';
@@ -56,6 +57,15 @@ export function ImportHardwareAddressScreen(): JSX.Element {
     }
   }, [setHasAccounts]);
 
+  const route =
+    useRoute<
+      GetNestedScreenRouteProp<
+        'AddressNavigatorParamList',
+        'ImportHardwareAddress'
+      >
+    >();
+  const autoOpenKeystone = route.params?.autoOpenKeystone;
+
   useFocusEffect(
     useCallback(() => {
       initAccounts();
@@ -91,6 +101,16 @@ export function ImportHardwareAddressScreen(): JSX.Element {
       },
     });
   }, []);
+
+  const autoOpenedKeystoneRef = React.useRef(false);
+  useFocusEffect(
+    useCallback(() => {
+      if (autoOpenKeystone && !autoOpenedKeystoneRef.current) {
+        autoOpenedKeystoneRef.current = true;
+        handleKeystone();
+      }
+    }, [autoOpenKeystone, handleKeystone]),
+  );
 
   const handleOneKey = React.useCallback(() => {
     const id = createGlobalBottomSheetModal2024({

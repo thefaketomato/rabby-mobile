@@ -55,7 +55,12 @@ export const ImportMoreAddressScreenButton = ({
           onDone: () => {
             removeGlobalBottomSheetModal(id);
           },
-          ...(state.type ? { keyringId: state.keyringId } : {}),
+          ...(state.type
+            ? {
+                keyringId: state.keyringId,
+                keystoneKeyringId: state.keystoneKeyringId,
+              }
+            : {}),
         });
       }}>
       <RcIconHeaderSettings width={24} height={24} color={tintColor} />

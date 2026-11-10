@@ -11,13 +11,7 @@ import {
 } from '@rabby-wallet/keyring-utils';
 
 import { RootNames } from '@/constant/layout';
-import {
-  apiKeystone,
-  apiLedger,
-  apiMnemonic,
-  apiOneKey,
-  apiTrezor,
-} from '@/core/apis';
+import { apiLedger, apiMnemonic, apiOneKey, apiTrezor } from '@/core/apis';
 import { useTheme2024 } from '@/hooks/theme';
 import { replace } from '@/utils/navigation';
 
@@ -43,6 +37,7 @@ import i18next from 'i18next';
 import { Text } from '@/components/Typography';
 import { ensureWalletUnlockedForAction } from '@/utils/walletUnlock';
 import * as SecretVault from '@/core/utils/secretVault';
+import { createKeystoneHDAddressApi } from './keystoneApi';
 
 const { isSameAddress } = addressUtils;
 
@@ -113,17 +108,7 @@ const useHDConfig = (type: KEYRING_TYPE, keystoneKeyringId?: string) =>
       case KEYRING_TYPE.KeystoneKeyring:
         return {
           ...defaults,
-          apiHD: {
-            ...apiKeystone,
-            getAddresses: (start: number, end: number) =>
-              apiKeystone.getAddresses(start, end, keystoneKeyringId),
-            getCurrentAccounts: () =>
-              apiKeystone.getCurrentAccounts(keystoneKeyringId),
-            getMaxAccountLimit: () =>
-              apiKeystone.getMaxAccountLimit(keystoneKeyringId),
-            importAddress: (index: number) =>
-              apiKeystone.importAddress(index, keystoneKeyringId),
-          },
+          apiHD: createKeystoneHDAddressApi(keystoneKeyringId),
           hdType: HARDWARE_KEYRING_TYPES.Keystone.type as KEYRING_TYPE,
           hdBrandName: HARDWARE_KEYRING_TYPES.Keystone.brandName,
           settingModalName: MODAL_NAMES.SETTING_KEYSTONE,
@@ -546,11 +531,15 @@ export const ImportMoreAddress: React.FC<Props> = ({ params, onCancel }) => {
       },
       ...(params.type === KEYRING_TYPE.KeystoneKeyring
         ? {
-            onSwitchDevice: () => {
+            onAddAnother: () => {
               onCancel();
               replace(RootNames.StackAddress, {
                 screen: RootNames.ImportHardwareAddress,
+                params: { autoOpenKeystone: true },
               });
+            },
+            onRemoved: () => {
+              onCancel();
             },
           }
         : {}),

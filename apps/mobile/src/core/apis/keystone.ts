@@ -402,6 +402,13 @@ export async function getWallets(): Promise<KeystoneWalletInfo[]> {
  * @param address - Account address.
  * @returns Wallet info, or undefined when the address is not a Keystone account.
  */
+export async function getWallet(
+  walletId?: string,
+): Promise<KeystoneWalletInfo | undefined> {
+  const keyring = await resolveKeyring(walletId);
+  return toWalletInfo(keyring);
+}
+
 export async function getWalletByAccount(
   address: string,
 ): Promise<KeystoneWalletInfo | undefined> {
@@ -426,7 +433,10 @@ export async function getAccountInfoByAddress(address: string) {
   return keyring.getAccountInfo(address);
 }
 
-export async function renameWallet(walletId: string, alias: string) {
+export async function renameWallet(
+  walletId: string | undefined,
+  alias: string,
+) {
   const keyring = await resolveKeyring(walletId);
   keyring.setWalletAlias(alias);
 

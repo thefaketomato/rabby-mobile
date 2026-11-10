@@ -43,6 +43,8 @@ export const MODAL_GATE_IDS = {
   swapTokenInfo: 'swap-token-info',
   gnosisSameMessage: 'gnosis-same-message',
   hdKeystoneSwitchDevice: 'hd-keystone-switch-device',
+  hdKeystoneRenameWallet: 'hd-keystone-rename-wallet',
+  hdKeystoneRemoveWallet: 'hd-keystone-remove-wallet',
   receiveWatchMode: 'receive-watch-mode',
   devServerSettings: 'dev-server-settings',
   devUpgradePromptPreview: 'dev-upgrade-prompt-preview',

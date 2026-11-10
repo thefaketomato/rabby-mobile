@@ -284,11 +284,14 @@ export type AddressNavigatorParamList = {
     brand?: string;
     mnemonicsVaultId?: string;
     keyringId?: number;
+    keystoneKeyringId?: string;
     isExistedKR?: boolean;
   };
   [RootNames.ImportPrivateKey]?: {};
   [RootNames.ImportPrivateKey2024]?: {};
-  [RootNames.ImportHardwareAddress]?: {};
+  [RootNames.ImportHardwareAddress]?: {
+    autoOpenKeystone?: boolean;
+  };
   [RootNames.ImportMnemonic]?: {};
   [RootNames.ImportMnemonic2024]?: {};
   [RootNames.AddMnemonic]?: {};
