@@ -6,13 +6,12 @@ import { Card } from '@/components2024/Card';
 import { ListItem } from '@/components2024/ListItem/ListItem';
 import { WalletIcon } from '@/components2024/WalletIcon/WalletIcon';
 import { KEYRING_CLASS, KEYRING_TYPE } from '@rabby-wallet/keyring-utils';
-import { useImportKeystone } from '@/components/ConnectKeystone/useImportKeystone';
 import { MODAL_NAMES } from '@/components2024/GlobalBottomSheetModal/types';
 import {
   createGlobalBottomSheetModal2024,
   removeGlobalBottomSheetModal2024,
 } from '@/components2024/GlobalBottomSheetModal';
-import { apiKeystone, apiTrezor } from '@/core/apis';
+import { apiTrezor } from '@/core/apis';
 import NormalScreenContainer2024 from '@/components2024/ScreenContainer/NormalScreenContainer';
 import { keyringServiceApi } from '@/core/serviceApi/keyring';
 import { useFocusEffect } from '@react-navigation/native';
@@ -78,15 +77,7 @@ export function ImportHardwareAddressScreen(): JSX.Element {
     });
   }, []);
 
-  const goImport = useImportKeystone();
-
-  const handleKeystone = React.useCallback(async () => {
-    const isReady = await apiKeystone.isReady();
-    if (isReady) {
-      goImport();
-      return;
-    }
-
+  const handleKeystone = React.useCallback(() => {
     const id = createGlobalBottomSheetModal2024({
       name: MODAL_NAMES.CONNECT_KEYSTONE,
       bottomSheetModalProps: {
@@ -99,7 +90,7 @@ export function ImportHardwareAddressScreen(): JSX.Element {
         }, 0);
       },
     });
-  }, [goImport]);
+  }, []);
 
   const handleOneKey = React.useCallback(() => {
     const id = createGlobalBottomSheetModal2024({

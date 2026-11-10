@@ -1286,6 +1286,16 @@
           "title": "Quét Keystone để kết nối",
           "description": "Quét mã QR trên ví Keystone của bạn",
           "invalidQRCode": "Mã QR không hợp lệ. Vui lòng quét mã QR đồng bộ của ví phần cứng."
+        },
+        "select": {
+          "title": "Keystone wallets",
+          "description": "Choose a paired Keystone wallet to add or manage addresses.",
+          "addAnother": "Add another Keystone wallet",
+          "alreadyAdded": "This Keystone wallet is already added",
+          "fingerprint": "Fingerprint {{fingerprint}}",
+          "addressCount_one": "{{count}} address",
+          "addressCount_other": "{{count}} addresses",
+          "pairingFailed": "Failed to start Keystone pairing. Please try again."
         }
       },
       "ledger": {

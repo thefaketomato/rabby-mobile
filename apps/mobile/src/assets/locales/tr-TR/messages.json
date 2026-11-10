@@ -1250,6 +1250,16 @@
           "description": "Keystone cüzdanınızdaki QR kodunu tarayın.",
           "title": "Keystone'ı Bağlamak İçin Tara",
           "invalidQRCode": "Geçersiz QR kodu. Lütfen donanım cüzdanının senkronizasyon QR kodunu tarayın."
+        },
+        "select": {
+          "title": "Keystone wallets",
+          "description": "Choose a paired Keystone wallet to add or manage addresses.",
+          "addAnother": "Add another Keystone wallet",
+          "alreadyAdded": "This Keystone wallet is already added",
+          "fingerprint": "Fingerprint {{fingerprint}}",
+          "addressCount_one": "{{count}} address",
+          "addressCount_other": "{{count}} addresses",
+          "pairingFailed": "Failed to start Keystone pairing. Please try again."
         }
       },
       "hd": {

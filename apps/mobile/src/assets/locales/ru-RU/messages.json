@@ -1202,6 +1202,16 @@
           "title": "Сканируйте Keystone для подключения",
           "description": "Отсканируйте QR-код на вашем кошельке Keystone",
           "invalidQRCode": "Недействительный QR-код. Отсканируйте QR-код синхронизации аппаратного кошелька."
+        },
+        "select": {
+          "title": "Keystone wallets",
+          "description": "Choose a paired Keystone wallet to add or manage addresses.",
+          "addAnother": "Add another Keystone wallet",
+          "alreadyAdded": "This Keystone wallet is already added",
+          "fingerprint": "Fingerprint {{fingerprint}}",
+          "addressCount_one": "{{count}} address",
+          "addressCount_other": "{{count}} addresses",
+          "pairingFailed": "Failed to start Keystone pairing. Please try again."
         }
       },
       "privateKey": {

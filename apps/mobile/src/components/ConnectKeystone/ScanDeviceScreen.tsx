@@ -49,15 +49,21 @@ const getStyle = createGetStyles2024(({ colors2024 }) => ({
   },
 }));
 
-export const ScanDeviceScreen: React.FC<{ onScanFinish: () => void }> = ({
-  onScanFinish,
-}) => {
+export const ScanDeviceScreen: React.FC<{
+  pendingId: string;
+  onScanFinish: (result: { walletId: string; isExisting: boolean }) => void;
+}> = ({ pendingId, onScanFinish }) => {
   const { t } = useTranslation();
   const { styles } = useTheme2024({ getStyle });
   const decoder = React.useRef(new URDecoder());
   const [progress, setProgress] = React.useState(0);
   const [errorMessage, setErrorMessage] = React.useState('');
   const scannedRef = React.useRef(false);
+
+  const resetDecoder = React.useCallback(() => {
+    decoder.current = new URDecoder();
+    setProgress(0);
+  }, []);
 
   const handleCodeScanned = async (codes: Code[]) => {
     try {
@@ -71,24 +77,29 @@ export const ScanDeviceScreen: React.FC<{ onScanFinish: () => void }> = ({
         }
         scannedRef.current = true;
         const result = decoder.current.resultUR();
-        if (result.type === 'crypto-hdkey') {
-          await apiKeystone.submitQRHardwareCryptoHDKey(
-            result.cbor.toString('hex'),
-          );
-        } else if (result.type === 'crypto-account') {
-          await apiKeystone.submitQRHardwareCryptoAccount(
-            result.cbor.toString('hex'),
-          );
-        } else {
+
+        if (
+          result.type !== 'crypto-hdkey' &&
+          result.type !== 'crypto-account'
+        ) {
           setErrorMessage(t('page.newAddress.keystone.scan.invalidQRCode'));
+          scannedRef.current = false;
+          resetDecoder();
           return;
         }
 
-        onScanFinish();
+        const wallet = await apiKeystone.submitQRHardwareSync(
+          result.type,
+          result.cbor.toString('hex'),
+          pendingId,
+        );
+
+        onScanFinish(wallet);
       }
     } catch (e) {
       console.error(e);
       scannedRef.current = false;
+      resetDecoder();
       setErrorMessage(t('page.newAddress.keystone.scan.invalidQRCode'));
     }
   };
@@ -109,6 +120,7 @@ export const ScanDeviceScreen: React.FC<{ onScanFinish: () => void }> = ({
             containerStyle={styles.scanner}
           />
         </View>
+        {errorMessage ? <Text style={styles.text}>{errorMessage}</Text> : null}
       </View>
     </View>
   );

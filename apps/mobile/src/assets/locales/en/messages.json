@@ -1297,6 +1297,16 @@
           "title": "Scan Keystone to Connect",
           "description": "Scan the QR-code on your Keystone wallet",
           "invalidQRCode": "Invalid QR code. Please scan the sync QR code of the hardware wallet."
+        },
+        "select": {
+          "title": "Keystone wallets",
+          "description": "Choose a paired Keystone wallet to add or manage addresses.",
+          "addAnother": "Add another Keystone wallet",
+          "alreadyAdded": "This Keystone wallet is already added",
+          "fingerprint": "Fingerprint {{fingerprint}}",
+          "addressCount_one": "{{count}} address",
+          "addressCount_other": "{{count}} addresses",
+          "pairingFailed": "Failed to start Keystone pairing. Please try again."
         }
       },
       "hd": {

@@ -1302,6 +1302,16 @@
         "camera": {
           "title": "连接 Keystone",
           "description": "启用相机访问并扫描你的 Keystone"
+        },
+        "select": {
+          "title": "Keystone wallets",
+          "description": "Choose a paired Keystone wallet to add or manage addresses.",
+          "addAnother": "Add another Keystone wallet",
+          "alreadyAdded": "This Keystone wallet is already added",
+          "fingerprint": "Fingerprint {{fingerprint}}",
+          "addressCount_one": "{{count}} address",
+          "addressCount_other": "{{count}} addresses",
+          "pairingFailed": "Failed to start Keystone pairing. Please try again."
         }
       },
       "whatIsSeedPhrase": {

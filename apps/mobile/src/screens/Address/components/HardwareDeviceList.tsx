@@ -7,8 +7,6 @@ import OneKeySVG from '@/assets/icons/wallet/onekey.svg';
 import KeystoneSVG from '@/assets/icons/wallet/keystone.svg';
 import { HardwareSVG } from '@/assets/icons/address';
 import { MODAL_NAMES } from '@/components2024/GlobalBottomSheetModal/types';
-import { apiKeystone } from '@/core/apis';
-import { useImportKeystone } from '@/components/ConnectKeystone/useImportKeystone';
 import {
   createGlobalBottomSheetModal2024,
   removeGlobalBottomSheetModal2024,
@@ -39,15 +37,7 @@ export const HardwareDeviceList = () => {
     });
   }, []);
 
-  const goImport = useImportKeystone();
-
-  const handleKeystone = React.useCallback(async () => {
-    const isReady = await apiKeystone.isReady();
-    if (isReady) {
-      goImport();
-      return;
-    }
-
+  const handleKeystone = React.useCallback(() => {
     const id = createGlobalBottomSheetModal2024({
       name: MODAL_NAMES.CONNECT_KEYSTONE,
       bottomSheetModalProps: {
@@ -60,7 +50,7 @@ export const HardwareDeviceList = () => {
         }, 0);
       },
     });
-  }, [goImport]);
+  }, []);
 
   const handleOneKey = React.useCallback(() => {
     const id = createGlobalBottomSheetModal2024({

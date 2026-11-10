@@ -1459,6 +1459,16 @@
         "camera": {
           "title": "เชื่อมต่อ Keystone",
           "description": "เปิดการเข้าถึงกล้องและสแกน Keystone ของคุณ"
+        },
+        "select": {
+          "title": "Keystone wallets",
+          "description": "Choose a paired Keystone wallet to add or manage addresses.",
+          "addAnother": "Add another Keystone wallet",
+          "alreadyAdded": "This Keystone wallet is already added",
+          "fingerprint": "Fingerprint {{fingerprint}}",
+          "addressCount_one": "{{count}} address",
+          "addressCount_other": "{{count}} addresses",
+          "pairingFailed": "Failed to start Keystone pairing. Please try again."
         }
       },
       "onekey": {

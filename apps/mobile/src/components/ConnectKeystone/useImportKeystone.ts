@@ -1,5 +1,3 @@
-import { RootNames } from '@/constant/layout';
-import { navigateDeprecated } from '@/utils/navigation';
 import { LedgerHDPathType } from '@rabby-wallet/eth-keyring-ledger/dist/utils';
 import {
   HARDWARE_KEYRING_TYPES,
@@ -30,23 +28,39 @@ export const useImportKeystone = () => {
       });
   }, []);
 
-  const goImport = React.useCallback(() => {
-    setSetting({
-      startNumber: 1,
-      hdPath: ref.current || LedgerHDPathType.BIP44,
-    });
-    // navigateDeprecated(RootNames.StackAddress, {
-    //   screen: RootNames.ImportMoreAddress,
-    //   params: {
-    //     type: HARDWARE_KEYRING_TYPES.Keystone.type as KEYRING_TYPE,
-    //     brand: HARDWARE_KEYRING_TYPES.Keystone.brandName,
-    //   },
-    // });
-    showImportMorePopup({
-      type: HARDWARE_KEYRING_TYPES.Keystone.type as KEYRING_TYPE,
-      brandName: HARDWARE_KEYRING_TYPES.Keystone.brandName,
-    });
-  }, [setSetting, showImportMorePopup]);
+  /**
+   * Open the "import more addresses" flow for a Keystone wallet.
+   *
+   * @param walletId - Optional wallet id. When omitted the API falls back to the
+   * only paired wallet (legacy callers).
+   * @returns Resolves once the import sheet has been requested.
+   */
+  const goImport = React.useCallback(
+    async (walletId?: string) => {
+      let hdPath = ref.current;
+
+      if (walletId) {
+        try {
+          hdPath = await apiKeystone.getCurrentUsedHDPathType(walletId);
+        } catch (e) {
+          console.log(
+            "Failed to get Keystone's HD Path Type for wallet, use default",
+          );
+        }
+      }
+
+      setSetting({
+        startNumber: 1,
+        hdPath: hdPath || LedgerHDPathType.BIP44,
+      });
+      showImportMorePopup({
+        type: HARDWARE_KEYRING_TYPES.Keystone.type as KEYRING_TYPE,
+        brandName: HARDWARE_KEYRING_TYPES.Keystone.brandName,
+        keystoneKeyringId: walletId,
+      });
+    },
+    [setSetting, showImportMorePopup],
+  );
 
   return goImport;
 };

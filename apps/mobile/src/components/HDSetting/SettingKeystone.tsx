@@ -101,8 +101,9 @@ const getStyles = (colors: AppColorsVariants) =>
 export const SettingKeystone: React.FC<{
   onDone: () => void;
   brand: string;
+  keystoneKeyringId?: string;
   onSwitchDevice?: () => void;
-}> = ({ onDone, brand, onSwitchDevice }) => {
+}> = ({ onDone, brand, keystoneKeyringId, onSwitchDevice }) => {
   const { t } = useTranslation();
   const [, setLoading] = React.useState(false);
   const [hdPathOptions, setHdPathOptions] = React.useState<
@@ -112,7 +113,9 @@ export const SettingKeystone: React.FC<{
 
   React.useEffect(() => {
     const getHdPathOptions = async () => {
-      const hdPathType = await apiKeystone.getCurrentUsedHDPathType();
+      const hdPathType = await apiKeystone.getCurrentUsedHDPathType(
+        keystoneKeyringId,
+      );
 
       if (hdPathType === LedgerHDPathType.BIP44) {
         return [
@@ -152,10 +155,10 @@ export const SettingKeystone: React.FC<{
 
     getHdPathOptions().then(setHdPathOptions);
 
-    apiKeystone.getMaxAccountLimit().then(limit => {
+    apiKeystone.getMaxAccountLimit(keystoneKeyringId).then(limit => {
       setDisableStartFrom((limit ?? MAX_ACCOUNT_COUNT) < MAX_ACCOUNT_COUNT);
     });
-  }, [t]);
+  }, [t, keystoneKeyringId]);
 
   const colors = useThemeColors();
   const styles = React.useMemo(() => getStyles(colors), [colors]);
@@ -187,11 +190,11 @@ export const SettingKeystone: React.FC<{
     setVisible(false);
   }, []);
   const handleModalConfirm = React.useCallback(async () => {
-    await apiKeystone.removeAddressAndForgetDevice();
+    await apiKeystone.removeAddressAndForgetDevice(keystoneKeyringId);
     setVisible(false);
     onDone();
     onSwitchDevice?.();
-  }, [onDone, onSwitchDevice]);
+  }, [keystoneKeyringId, onDone, onSwitchDevice]);
 
   return (
     <MainContainer

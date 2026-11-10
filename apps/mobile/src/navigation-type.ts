@@ -249,6 +249,7 @@ export type AddressNavigatorParamList = {
     supportChainList?: Chain[];
     mnemonicsVaultId?: string;
     keyringId?: number;
+    keystoneKeyringId?: string;
     alias?: string;
     isExistedKR?: boolean;
   };
@@ -263,6 +264,7 @@ export type AddressNavigatorParamList = {
     supportChainList?: Chain[];
     mnemonicsVaultId?: string;
     keyringId?: number;
+    keystoneKeyringId?: string;
     alias?: string;
     isExistedKR?: boolean;
     showBackup?: boolean;

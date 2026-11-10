@@ -54,6 +54,7 @@ export interface Props {
     type: KEYRING_TYPE;
     mnemonicsVaultId?: string;
     keyringId?: number;
+    keystoneKeyringId?: string;
     /** @deprecated */
     isExistedKR?: boolean;
     account?: KeyringAccountWithAlias;
@@ -84,7 +85,7 @@ const useGetAliasByAddress = () => {
   return getAliasByAddress;
 };
 
-const useHDConfig = (type: KEYRING_TYPE) =>
+const useHDConfig = (type: KEYRING_TYPE, keystoneKeyringId?: string) =>
   React.useMemo(() => {
     const defaults = {
       apiHD: null,
@@ -112,7 +113,17 @@ const useHDConfig = (type: KEYRING_TYPE) =>
       case KEYRING_TYPE.KeystoneKeyring:
         return {
           ...defaults,
-          apiHD: apiKeystone,
+          apiHD: {
+            ...apiKeystone,
+            getAddresses: (start: number, end: number) =>
+              apiKeystone.getAddresses(start, end, keystoneKeyringId),
+            getCurrentAccounts: () =>
+              apiKeystone.getCurrentAccounts(keystoneKeyringId),
+            getMaxAccountLimit: () =>
+              apiKeystone.getMaxAccountLimit(keystoneKeyringId),
+            importAddress: (index: number) =>
+              apiKeystone.importAddress(index, keystoneKeyringId),
+          },
           hdType: HARDWARE_KEYRING_TYPES.Keystone.type as KEYRING_TYPE,
           hdBrandName: HARDWARE_KEYRING_TYPES.Keystone.brandName,
           settingModalName: MODAL_NAMES.SETTING_KEYSTONE,
@@ -136,7 +147,7 @@ const useHDConfig = (type: KEYRING_TYPE) =>
       default:
         return defaults;
     }
-  }, [type]);
+  }, [type, keystoneKeyringId]);
 
 function yieldToRN(): Promise<void> {
   return new Promise(resolve => requestIdleCallback(() => resolve()));
@@ -145,6 +156,7 @@ function yieldToRN(): Promise<void> {
 export const ImportMoreAddress: React.FC<Props> = ({ params, onCancel }) => {
   const { apiHD, hdType, hdBrandName, settingModalName } = useHDConfig(
     params.type,
+    params.keystoneKeyringId,
   );
   const [accounts, setAccounts] = React.useState<ViewAccount[]>([]);
   const { styles, colors2024 } = useTheme2024({ getStyle });
@@ -288,14 +300,18 @@ export const ImportMoreAddress: React.FC<Props> = ({ params, onCancel }) => {
           errMessage = t('page.newAddress.ledger.error.lockedOrNoEthApp');
         } else if (errorCode === LEDGER_ERROR_CODES.UNKNOWN) {
           errMessage = t('page.newAddress.ledger.error.unknown');
-          if (__DEV__) exitRef.current = true;
+          if (__DEV__) {
+            exitRef.current = true;
+          }
         }
         if (errMessage) {
           toast.show(errMessage);
         }
       }
 
-      if (isAborted) return;
+      if (isAborted) {
+        return;
+      }
 
       setLoading(false);
 
@@ -460,6 +476,7 @@ export const ImportMoreAddress: React.FC<Props> = ({ params, onCancel }) => {
                   ? SecretVault.storeMnemonicsPayload(mnemonicsPayload)
                   : undefined,
                 keyringId: params.keyringId,
+                keystoneKeyringId: params.keystoneKeyringId,
                 isExistedKR: params.isExistedKR,
                 skipSuccessAnimation: params.skipSuccessAnimation,
               },
@@ -495,6 +512,7 @@ export const ImportMoreAddress: React.FC<Props> = ({ params, onCancel }) => {
           type: hdType,
           brandName: hdBrandName,
           address: selectedAccounts.map(a => a.address),
+          keystoneKeyringId: params.keystoneKeyringId,
           skipSuccessAnimation: params.skipSuccessAnimation,
         },
       });
@@ -502,6 +520,7 @@ export const ImportMoreAddress: React.FC<Props> = ({ params, onCancel }) => {
   }, [
     params.type,
     params.keyringId,
+    params.keystoneKeyringId,
     params.isExistedKR,
     params.skipSuccessAnimation,
     selectedAccounts,
@@ -538,6 +557,7 @@ export const ImportMoreAddress: React.FC<Props> = ({ params, onCancel }) => {
       ...(params.type
         ? {
             keyringId: params.keyringId,
+            keystoneKeyringId: params.keystoneKeyringId,
             mnemonics: mnemonicsPayloadRef.current?.mnemonics,
             passphrase: mnemonicsPayloadRef.current?.passphrase,
           }
@@ -546,6 +566,7 @@ export const ImportMoreAddress: React.FC<Props> = ({ params, onCancel }) => {
   }, [
     params.brandName,
     params.keyringId,
+    params.keystoneKeyringId,
     params.type,
     settingModalName,
     onCancel,
