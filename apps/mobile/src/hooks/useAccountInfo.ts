@@ -1,4 +1,4 @@
-import { apiKeyring, apiMnemonic } from '@/core/apis';
+import { apiKeyring, apiKeystone, apiMnemonic } from '@/core/apis';
 import { LedgerHDPathType } from '@rabby-wallet/eth-keyring-ledger/dist/utils';
 import { KeyringTypeName, KEYRING_CLASS } from '@rabby-wallet/keyring-utils';
 import { useState, useCallback, useEffect } from 'react';
@@ -27,17 +27,26 @@ export const useAccountsInfo = (
     type === KEYRING_CLASS.HARDWARE.TREZOR ||
     type === KEYRING_CLASS.HARDWARE.ONEKEY;
   const isMnemonics = type === KEYRING_CLASS.MNEMONIC;
-  const isKeystone = brand === 'Keystone';
+  const isKeystone =
+    type === KEYRING_CLASS.HARDWARE.KEYSTONE || brand === 'Keystone';
   const fetAccountInfo = useCallback(() => {
-    apiKeyring
-      .requestKeyring(type, 'getAccountInfo', null, address)
+    const request = isKeystone
+      ? apiKeystone.getAccountInfoByAddress(address)
+      : apiKeyring.requestKeyring(type, 'getAccountInfo', null, address);
+
+    request
       .then(res => {
+        const hdPathType = res.hdPathType as unknown as LedgerHDPathType;
         setAccount({
           ...res,
-          hdPathTypeLabel: LedgerHDPathTypeLabel[res.hdPathType],
+          hdPathType,
+          hdPathTypeLabel: LedgerHDPathTypeLabel[hdPathType],
         });
+      })
+      .catch(() => {
+        setAccount(undefined);
       });
-  }, [address, type]);
+  }, [address, isKeystone, type]);
 
   const fetchTrezorLikeAccount = useCallback(() => {
     apiKeyring

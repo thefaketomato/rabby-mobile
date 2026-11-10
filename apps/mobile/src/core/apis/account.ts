@@ -24,6 +24,7 @@ import addressBalanceStore from '@/store/balance';
 
 import { getAddressCacheBalance } from './balance';
 import { requestKeyring } from './keyring';
+import { getAccountInfoByAddress } from './keystone';
 import { isEqual } from 'lodash';
 import type {
   Account,
@@ -130,9 +131,17 @@ export async function getAllAccountsToDisplay() {
           index?: number;
         };
 
+        // Keystone can have several keyrings of the same type, so resolve the
+        // one that owns the address. Other keyring types keep the cheaper
+        // first-keyring lookup (they hold all their accounts in one keyring).
+        const accountInfoPromise =
+          item.type === KEYRING_TYPE.KeystoneKeyring
+            ? getAccountInfoByAddress(item.address)
+            : requestKeyring(item.type, 'getAccountInfo', null, item.address);
+
         await Promise.allSettled([
           getAddressCacheBalance(item?.address),
-          requestKeyring(item.type, 'getAccountInfo', null, item.address),
+          accountInfoPromise,
         ]).then(([res1, res2]) => {
           if (res1.status === 'fulfilled') {
             balance = res1.value;
@@ -474,7 +483,9 @@ export function filterOutTopAccounts<
   if (gatherSameAddress) {
     for (const item of sortedAccounts) {
       const lowerAddress = item.address.toLowerCase();
-      if (topRecords.size >= topCount) break;
+      if (topRecords.size >= topCount) {
+        break;
+      }
 
       topRecords.add(lowerAddress);
     }
@@ -495,7 +506,9 @@ export function filterOutTopAccounts<
     ret.restAccounts = sortedAccounts.slice(topCount);
     ret.topAccounts.forEach(item => {
       const addr = item.address.toLowerCase();
-      if (!topRecords.has(addr)) ret.topAddresses.push(addr);
+      if (!topRecords.has(addr)) {
+        ret.topAddresses.push(addr);
+      }
       topRecords.add(addr);
       return addr;
     });
