@@ -189,7 +189,7 @@ export const ConnectKeystone: React.FC<{
             brandName: HARDWARE_KEYRING_TYPES.Keystone.brandName,
             address,
             isFirstImport: true,
-            keystoneKeyringId: result.walletId,
+            keystoneWalletId: result.walletId,
           },
         });
         onDone?.();

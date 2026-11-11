@@ -89,7 +89,6 @@ type PublicAccountSnapshotItem = {
   address: string;
   type: KeyringTypeName;
   brandName: string;
-  keyringId?: string;
   byImport?: boolean;
   publicKey?: string;
   hdPathBasePublicKey?: string;
@@ -1926,10 +1925,6 @@ export class KeyringService extends RNEventEmitter {
           address: normalizeAddress(item.address),
           type: item.type as KeyringTypeName,
           brandName,
-          keyringId:
-            typeof item.keyringId === 'string' && item.keyringId
-              ? item.keyringId
-              : undefined,
           byImport:
             typeof item.byImport === 'boolean' ? item.byImport : undefined,
           publicKey:
@@ -2059,10 +2054,6 @@ export class KeyringService extends RNEventEmitter {
                   address,
                   type,
                   brandName: account.brandName || type,
-                  keyringId:
-                    typeof (keyring as any).getWalletId === 'function'
-                      ? (keyring as any).getWalletId() || undefined
-                      : undefined,
                   byImport:
                     typeof display.byImport === 'boolean'
                       ? display.byImport
@@ -2141,7 +2132,6 @@ export class KeyringService extends RNEventEmitter {
       address: normalizeAddress(item.address),
       type: item.type,
       brandName: item.brandName || item.type,
-      keyringId: item.keyringId,
       byImport: item.byImport,
       publicKey: item.publicKey,
       hdPathBasePublicKey: item.hdPathBasePublicKey,
@@ -2163,7 +2153,6 @@ export class KeyringService extends RNEventEmitter {
         const groupId = [
           item.type,
           item.brandName,
-          item.keyringId || '',
           item.publicKey || '',
           item.hdPathBasePublicKey || '',
           item.hdPathType || '',
@@ -2174,7 +2163,6 @@ export class KeyringService extends RNEventEmitter {
         if (!acc[groupId]) {
           acc[groupId] = {
             type: item.type,
-            keyringId: item.keyringId,
             byImport: item.byImport,
             publicKey: item.publicKey,
             hasBackup: item.hasBackup,
@@ -2190,7 +2178,6 @@ export class KeyringService extends RNEventEmitter {
         string,
         {
           type: KeyringTypeName;
-          keyringId?: string;
           byImport?: boolean;
           publicKey?: string;
           hasBackup?: boolean;
@@ -2202,7 +2189,6 @@ export class KeyringService extends RNEventEmitter {
 
     return Object.values(grouped).map(group => ({
       type: group.type,
-      keyringId: group.keyringId,
       accounts: group.accounts,
       keyring: new DisplayKeyring({
         type: group.type,
@@ -2540,11 +2526,6 @@ export class KeyringService extends RNEventEmitter {
         (keyring as KeyringIntf).getAccountsWithBrand!()
       : keyring.getAccounts();
 
-    const keyringId =
-      typeof (keyring as any).getWalletId === 'function'
-        ? (keyring as any).getWalletId()
-        : undefined;
-
     // eslint-disable-next-line @typescript-eslint/no-shadow
     return accounts.then(accounts => {
       const allAccounts = accounts.map(account => ({
@@ -2557,7 +2538,6 @@ export class KeyringService extends RNEventEmitter {
 
       return {
         type: keyring.type,
-        keyringId: keyringId || undefined,
         accounts: includeHidden
           ? allAccounts
           : allAccounts.filter(
@@ -2640,7 +2620,6 @@ export class KeyringService extends RNEventEmitter {
           address: account.address,
           brandName: account.brandName,
           type: accountGroup.type,
-          keyringId: accountGroup.keyringId,
           byImport: accountGroup.byImport,
           publicKey: accountGroup.publicKey,
           hasBackup: accountGroup.hasBackup,
@@ -2672,7 +2651,6 @@ export class KeyringService extends RNEventEmitter {
           address: account.address,
           brandName: account.brandName,
           type: accountGroup.type,
-          keyringId: accountGroup.keyringId,
           byImport: accountGroup.byImport,
         })),
       );

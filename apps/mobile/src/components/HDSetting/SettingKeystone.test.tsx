@@ -157,7 +157,7 @@ describe('SettingKeystone', () => {
       <SettingKeystone
         onDone={jest.fn()}
         brand="Keystone"
-        keystoneKeyringId="wallet-a"
+        keystoneWalletId="wallet-a"
       />,
     );
 
@@ -186,7 +186,7 @@ describe('SettingKeystone', () => {
       <SettingKeystone
         onDone={jest.fn()}
         brand="Keystone"
-        keystoneKeyringId="wallet-a"
+        keystoneWalletId="wallet-a"
       />,
     );
 
@@ -222,7 +222,7 @@ describe('SettingKeystone', () => {
         onDone={onDone}
         onRemoved={onRemoved}
         brand="Keystone"
-        keystoneKeyringId="wallet-a"
+        keystoneWalletId="wallet-a"
       />,
     );
 
@@ -249,7 +249,7 @@ describe('SettingKeystone', () => {
         onDone={onDone}
         onAddAnother={onAddAnother}
         brand="Keystone"
-        keystoneKeyringId="wallet-a"
+        keystoneWalletId="wallet-a"
       />,
     );
 

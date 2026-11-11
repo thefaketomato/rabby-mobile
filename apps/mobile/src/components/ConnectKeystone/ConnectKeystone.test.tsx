@@ -283,7 +283,7 @@ describe('ConnectKeystone', () => {
         expect.objectContaining({
           params: expect.objectContaining({
             address: '0xnew',
-            keystoneKeyringId: 'new-id',
+            keystoneWalletId: 'new-id',
             isFirstImport: true,
           }),
         }),

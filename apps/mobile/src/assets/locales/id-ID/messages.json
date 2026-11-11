@@ -1250,28 +1250,6 @@
           "title": "Pindai Keystone untuk Terhubung",
           "description": "Pindai kode QR di dompet Keystone Anda",
           "invalidQRCode": "Kode QR tidak valid. Silakan pindai kode QR sinkronisasi dompet perangkat keras."
-        },
-        "select": {
-          "title": "Keystone wallets",
-          "description": "Choose a paired Keystone wallet to add or manage addresses.",
-          "addAnother": "Add another Keystone wallet",
-          "alreadyAdded": "This Keystone wallet is already added",
-          "fingerprint": "Fingerprint {{fingerprint}}",
-          "addressCount_one": "{{count}} address",
-          "addressCount_other": "{{count}} addresses",
-          "pairingFailed": "Failed to start Keystone pairing. Please try again."
-        },
-        "settings": {
-          "rename": "Rename",
-          "renameTitle": "Rename Keystone wallet",
-          "renamePlaceholder": "Wallet name",
-          "renamed": "Wallet name updated",
-          "renameFailed": "Failed to rename wallet",
-          "addAnother": "Add another Keystone wallet",
-          "remove": "Remove this Keystone wallet",
-          "removeTitle": "Remove this Keystone wallet?",
-          "removeContent": "This removes the wallet and its addresses from Rabby. You can pair it again later.",
-          "removeFailed": "Failed to remove wallet"
         }
       },
       "hd": {
@@ -1463,7 +1441,6 @@
       "backupFailed": "Pencadangan gagal, silakan coba lagi",
       "delete-desc-needpassword": "Sebelum Anda menghapus, ingatlah poin-poin berikut untuk memahami cara melindungi aset Anda.",
       "source": "Sumber",
-      "wallet": "Wallet",
       "hd-path": "HD Path",
       "address": "Alamat",
       "admins": "Admin",

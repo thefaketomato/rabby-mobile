@@ -49,7 +49,7 @@ export interface Props {
     type: KEYRING_TYPE;
     mnemonicsVaultId?: string;
     keyringId?: number;
-    keystoneKeyringId?: string;
+    keystoneWalletId?: string;
     /** @deprecated */
     isExistedKR?: boolean;
     account?: KeyringAccountWithAlias;
@@ -80,7 +80,7 @@ const useGetAliasByAddress = () => {
   return getAliasByAddress;
 };
 
-const useHDConfig = (type: KEYRING_TYPE, keystoneKeyringId?: string) =>
+const useHDConfig = (type: KEYRING_TYPE, keystoneWalletId?: string) =>
   React.useMemo(() => {
     const defaults = {
       apiHD: null,
@@ -108,7 +108,7 @@ const useHDConfig = (type: KEYRING_TYPE, keystoneKeyringId?: string) =>
       case KEYRING_TYPE.KeystoneKeyring:
         return {
           ...defaults,
-          apiHD: createKeystoneHDAddressApi(keystoneKeyringId),
+          apiHD: createKeystoneHDAddressApi(keystoneWalletId),
           hdType: HARDWARE_KEYRING_TYPES.Keystone.type as KEYRING_TYPE,
           hdBrandName: HARDWARE_KEYRING_TYPES.Keystone.brandName,
           settingModalName: MODAL_NAMES.SETTING_KEYSTONE,
@@ -132,7 +132,7 @@ const useHDConfig = (type: KEYRING_TYPE, keystoneKeyringId?: string) =>
       default:
         return defaults;
     }
-  }, [type, keystoneKeyringId]);
+  }, [type, keystoneWalletId]);
 
 function yieldToRN(): Promise<void> {
   return new Promise(resolve => requestIdleCallback(() => resolve()));
@@ -141,7 +141,7 @@ function yieldToRN(): Promise<void> {
 export const ImportMoreAddress: React.FC<Props> = ({ params, onCancel }) => {
   const { apiHD, hdType, hdBrandName, settingModalName } = useHDConfig(
     params.type,
-    params.keystoneKeyringId,
+    params.keystoneWalletId,
   );
   const [accounts, setAccounts] = React.useState<ViewAccount[]>([]);
   const { styles, colors2024 } = useTheme2024({ getStyle });
@@ -461,7 +461,7 @@ export const ImportMoreAddress: React.FC<Props> = ({ params, onCancel }) => {
                   ? SecretVault.storeMnemonicsPayload(mnemonicsPayload)
                   : undefined,
                 keyringId: params.keyringId,
-                keystoneKeyringId: params.keystoneKeyringId,
+                keystoneWalletId: params.keystoneWalletId,
                 isExistedKR: params.isExistedKR,
                 skipSuccessAnimation: params.skipSuccessAnimation,
               },
@@ -497,7 +497,7 @@ export const ImportMoreAddress: React.FC<Props> = ({ params, onCancel }) => {
           type: hdType,
           brandName: hdBrandName,
           address: selectedAccounts.map(a => a.address),
-          keystoneKeyringId: params.keystoneKeyringId,
+          keystoneWalletId: params.keystoneWalletId,
           skipSuccessAnimation: params.skipSuccessAnimation,
         },
       });
@@ -505,7 +505,7 @@ export const ImportMoreAddress: React.FC<Props> = ({ params, onCancel }) => {
   }, [
     params.type,
     params.keyringId,
-    params.keystoneKeyringId,
+    params.keystoneWalletId,
     params.isExistedKR,
     params.skipSuccessAnimation,
     selectedAccounts,
@@ -546,7 +546,7 @@ export const ImportMoreAddress: React.FC<Props> = ({ params, onCancel }) => {
       ...(params.type
         ? {
             keyringId: params.keyringId,
-            keystoneKeyringId: params.keystoneKeyringId,
+            keystoneWalletId: params.keystoneWalletId,
             mnemonics: mnemonicsPayloadRef.current?.mnemonics,
             passphrase: mnemonicsPayloadRef.current?.passphrase,
           }
@@ -555,7 +555,7 @@ export const ImportMoreAddress: React.FC<Props> = ({ params, onCancel }) => {
   }, [
     params.brandName,
     params.keyringId,
-    params.keystoneKeyringId,
+    params.keystoneWalletId,
     params.type,
     settingModalName,
     onCancel,

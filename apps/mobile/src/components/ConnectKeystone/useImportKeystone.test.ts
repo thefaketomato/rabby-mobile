@@ -72,7 +72,7 @@ describe('useImportKeystone', () => {
     expect(mockShowImportMorePopup).toHaveBeenCalledWith({
       type: 'QR Hardware Wallet Device',
       brandName: 'Keystone',
-      keystoneKeyringId: 'wallet-a',
+      keystoneWalletId: 'wallet-a',
     });
   });
 
@@ -90,7 +90,7 @@ describe('useImportKeystone', () => {
     expect(mockShowImportMorePopup).toHaveBeenCalledWith({
       type: 'QR Hardware Wallet Device',
       brandName: 'Keystone',
-      keystoneKeyringId: undefined,
+      keystoneWalletId: undefined,
     });
   });
 });

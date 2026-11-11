@@ -1286,28 +1286,6 @@
           "title": "Quét Keystone để kết nối",
           "description": "Quét mã QR trên ví Keystone của bạn",
           "invalidQRCode": "Mã QR không hợp lệ. Vui lòng quét mã QR đồng bộ của ví phần cứng."
-        },
-        "select": {
-          "title": "Keystone wallets",
-          "description": "Choose a paired Keystone wallet to add or manage addresses.",
-          "addAnother": "Add another Keystone wallet",
-          "alreadyAdded": "This Keystone wallet is already added",
-          "fingerprint": "Fingerprint {{fingerprint}}",
-          "addressCount_one": "{{count}} address",
-          "addressCount_other": "{{count}} addresses",
-          "pairingFailed": "Failed to start Keystone pairing. Please try again."
-        },
-        "settings": {
-          "rename": "Rename",
-          "renameTitle": "Rename Keystone wallet",
-          "renamePlaceholder": "Wallet name",
-          "renamed": "Wallet name updated",
-          "renameFailed": "Failed to rename wallet",
-          "addAnother": "Add another Keystone wallet",
-          "remove": "Remove this Keystone wallet",
-          "removeTitle": "Remove this Keystone wallet?",
-          "removeContent": "This removes the wallet and its addresses from Rabby. You can pair it again later.",
-          "removeFailed": "Failed to remove wallet"
         }
       },
       "ledger": {
@@ -1517,7 +1495,6 @@
       "backupFailed": "Sao lưu thất bại, vui lòng thử lại",
       "address": "Địa chỉ",
       "source": "Nguồn",
-      "wallet": "Wallet",
       "watchAddressListScreen": {
         "addWatchAddress": "Thêm ví chỉ xem"
       },

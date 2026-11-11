@@ -56,7 +56,7 @@ export const useImportKeystone = () => {
       showImportMorePopup({
         type: HARDWARE_KEYRING_TYPES.Keystone.type as KEYRING_TYPE,
         brandName: HARDWARE_KEYRING_TYPES.Keystone.brandName,
-        keystoneKeyringId: walletId,
+        keystoneWalletId: walletId,
       });
     },
     [setSetting, showImportMorePopup],

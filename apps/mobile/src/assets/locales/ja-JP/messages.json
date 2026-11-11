@@ -1307,28 +1307,6 @@
           "title": "Keystoneをスキャンして接続",
           "description": "KeystoneウォレットのQRコードをスキャンしてください。",
           "invalidQRCode": "無効なQRコードです。ハードウェアウォレットの同期用QRコードをスキャンしてください。"
-        },
-        "select": {
-          "title": "Keystone wallets",
-          "description": "Choose a paired Keystone wallet to add or manage addresses.",
-          "addAnother": "Add another Keystone wallet",
-          "alreadyAdded": "This Keystone wallet is already added",
-          "fingerprint": "Fingerprint {{fingerprint}}",
-          "addressCount_one": "{{count}} address",
-          "addressCount_other": "{{count}} addresses",
-          "pairingFailed": "Failed to start Keystone pairing. Please try again."
-        },
-        "settings": {
-          "rename": "Rename",
-          "renameTitle": "Rename Keystone wallet",
-          "renamePlaceholder": "Wallet name",
-          "renamed": "Wallet name updated",
-          "renameFailed": "Failed to rename wallet",
-          "addAnother": "Add another Keystone wallet",
-          "remove": "Remove this Keystone wallet",
-          "removeTitle": "Remove this Keystone wallet?",
-          "removeContent": "This removes the wallet and its addresses from Rabby. You can pair it again later.",
-          "removeFailed": "Failed to remove wallet"
         }
       },
       "ledger": {
@@ -1444,7 +1422,6 @@
       "add-to-whitelist": "ホワイトリストに追加",
       "pin-in-list": "リストにピン留めする",
       "source": "ソース",
-      "wallet": "Wallet",
       "backup-private-key": "秘密鍵をバックアップ",
       "address": "アドレス",
       "watchAddressListScreen": {

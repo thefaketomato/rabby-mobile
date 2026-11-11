@@ -72,7 +72,7 @@ function createFakeKeyring(config: FakeKeyringConfig = {}) {
     submitSignature: jest.fn(),
     getAccountInfo: jest.fn(async (address: string) => ({
       address,
-      keyringId: keyring.getWalletId(),
+      walletId: keyring.getWalletId(),
     })),
     getInteraction: jest.fn(() => interaction),
     interaction,
@@ -267,7 +267,7 @@ describe('apiKeystone multi-wallet', () => {
       '0xbbb',
       'QR Hardware Wallet Device',
     );
-    expect(info).toStrictEqual({ address: '0xbbb', keyringId: 'bbbb:hd:m' });
+    expect(info).toStrictEqual({ address: '0xbbb', walletId: 'bbbb:hd:m' });
   });
 
   it('falls back to in-memory wallets when the address is not registered yet', async () => {
@@ -283,7 +283,7 @@ describe('apiKeystone multi-wallet', () => {
 
     const info = await api.getAccountInfoByAddress('0xCCC');
 
-    expect(info).toStrictEqual({ address: '0xCCC', keyringId: walletId });
+    expect(info).toStrictEqual({ address: '0xCCC', walletId });
   });
 
   it('routes signing requests to the wallet that owns them', async () => {

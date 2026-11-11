@@ -1302,28 +1302,6 @@
         "camera": {
           "title": "连接 Keystone",
           "description": "启用相机访问并扫描你的 Keystone"
-        },
-        "select": {
-          "title": "Keystone wallets",
-          "description": "Choose a paired Keystone wallet to add or manage addresses.",
-          "addAnother": "Add another Keystone wallet",
-          "alreadyAdded": "This Keystone wallet is already added",
-          "fingerprint": "Fingerprint {{fingerprint}}",
-          "addressCount_one": "{{count}} address",
-          "addressCount_other": "{{count}} addresses",
-          "pairingFailed": "Failed to start Keystone pairing. Please try again."
-        },
-        "settings": {
-          "rename": "Rename",
-          "renameTitle": "Rename Keystone wallet",
-          "renamePlaceholder": "Wallet name",
-          "renamed": "Wallet name updated",
-          "renameFailed": "Failed to rename wallet",
-          "addAnother": "Add another Keystone wallet",
-          "remove": "Remove this Keystone wallet",
-          "removeTitle": "Remove this Keystone wallet?",
-          "removeContent": "This removes the wallet and its addresses from Rabby. You can pair it again later.",
-          "removeFailed": "Failed to remove wallet"
         }
       },
       "whatIsSeedPhrase": {
@@ -1617,7 +1595,6 @@
         "addSafeAddress": "添加 Safe 钱包"
       },
       "source": "来源",
-      "wallet": "Wallet",
       "delete-desc-needpassword": "删除前，请务必了解以下资产安全须知",
       "add-to-whitelist": "添加到白名单",
       "addressListScreen": {

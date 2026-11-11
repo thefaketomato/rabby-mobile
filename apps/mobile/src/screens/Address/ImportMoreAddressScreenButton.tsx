@@ -58,7 +58,7 @@ export const ImportMoreAddressScreenButton = ({
           ...(state.type
             ? {
                 keyringId: state.keyringId,
-                keystoneKeyringId: state.keystoneKeyringId,
+                keystoneWalletId: state.keystoneWalletId,
               }
             : {}),
         });

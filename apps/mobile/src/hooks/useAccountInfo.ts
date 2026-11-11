@@ -14,8 +14,6 @@ type AccountInfoState = {
   hdPathType: LedgerHDPathType;
   hdPathTypeLabel: string;
   index: number;
-  /** Multi-wallet keyrings, e.g. Keystone. */
-  keyringId?: string;
   walletName?: string;
   deviceFingerprint?: string;
 };

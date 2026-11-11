@@ -1,4 +1,3 @@
-import { KEYRING_TYPE } from '@rabby-wallet/keyring-utils';
 import * as sinon from 'sinon';
 
 import { KeyringService } from './keyringService';
@@ -193,70 +192,5 @@ describe('keyringService', () => {
 
       expect(keyringService.keyrings).toEqual([previousKeyring]);
     });
-  });
-});
-
-describe('multi-wallet keyring ids', () => {
-  function createFakeKeyring(walletId: string, addresses: string[]) {
-    return {
-      type: KEYRING_TYPE.KeystoneKeyring,
-      getWalletId: () => walletId,
-      getAccountsWithBrand: async () =>
-        addresses.map(address => ({ address, brandName: 'Keystone' })),
-      getAccounts: async () => addresses,
-    } as any;
-  }
-
-  it('tags displayed groups and accounts with the wallet id', async () => {
-    const service = new KeyringService({ encryptor: mockEncryptor as any });
-    service.loadStore({});
-    service.keyrings = [
-      createFakeKeyring('wallet-a', [
-        '0x0000000000000000000000000000000000000001',
-      ]),
-      createFakeKeyring('wallet-b', [
-        '0x0000000000000000000000000000000000000002',
-      ]),
-    ];
-    service.memStore.updateState({ keyringRuntimeReady: true });
-
-    const groups = await service.getAllTypedVisibleAccounts();
-    expect(groups.map(group => group.keyringId)).toEqual([
-      'wallet-a',
-      'wallet-b',
-    ]);
-
-    const accounts = await service.getAllVisibleAccountsArray();
-    expect(accounts.map(account => account.keyringId)).toEqual([
-      'wallet-a',
-      'wallet-b',
-    ]);
-  });
-
-  it('keeps the wallet id in the public account snapshot', async () => {
-    const service = new KeyringService({ encryptor: mockEncryptor as any });
-    service.loadStore({});
-    service.store.updateState({
-      publicAccountSnapshot: {
-        version: 4,
-        updatedAt: Date.now(),
-        accounts: [
-          {
-            address: '0x0000000000000000000000000000000000000001',
-            type: KEYRING_TYPE.KeystoneKeyring,
-            brandName: 'Keystone',
-            keyringId: 'wallet-a',
-          },
-        ],
-      },
-    });
-    service.memStore.updateState({ keyringRuntimeReady: false });
-
-    const accounts = await service.getAllVisibleAccountsArray();
-    expect(accounts).toHaveLength(1);
-    expect(accounts[0].keyringId).toBe('wallet-a');
-    expect(service.getPublicAccountSnapshotAccounts()[0].keyringId).toBe(
-      'wallet-a',
-    );
   });
 });

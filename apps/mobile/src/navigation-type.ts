@@ -249,7 +249,7 @@ export type AddressNavigatorParamList = {
     supportChainList?: Chain[];
     mnemonicsVaultId?: string;
     keyringId?: number;
-    keystoneKeyringId?: string;
+    keystoneWalletId?: string;
     alias?: string;
     isExistedKR?: boolean;
   };
@@ -264,7 +264,7 @@ export type AddressNavigatorParamList = {
     supportChainList?: Chain[];
     mnemonicsVaultId?: string;
     keyringId?: number;
-    keystoneKeyringId?: string;
+    keystoneWalletId?: string;
     alias?: string;
     isExistedKR?: boolean;
     showBackup?: boolean;
@@ -284,7 +284,7 @@ export type AddressNavigatorParamList = {
     brand?: string;
     mnemonicsVaultId?: string;
     keyringId?: number;
-    keystoneKeyringId?: string;
+    keystoneWalletId?: string;
     isExistedKR?: boolean;
   };
   [RootNames.ImportPrivateKey]?: {};

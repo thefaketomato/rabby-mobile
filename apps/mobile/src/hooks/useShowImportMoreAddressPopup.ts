@@ -31,7 +31,7 @@ export const useShowImportMoreAddressPopup = () => {
       type: KEYRING_TYPE;
       mnemonicsVaultId?: string;
       keyringId?: number;
-      keystoneKeyringId?: string;
+      keystoneWalletId?: string;
       account?: KeyringAccountWithAlias;
       brandName: string;
     }) => {

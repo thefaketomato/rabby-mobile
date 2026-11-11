@@ -423,7 +423,7 @@ export async function getWalletByAccount(
  * Keystone keyrings, the first instance of the type may not own the address.
  *
  * @param address - Account address.
- * @returns Account info including `keyringId`, `walletName` and `index`.
+ * @returns Account info including `walletId`, `walletName` and `index`.
  */
 export async function getAccountInfoByAddress(address: string) {
   const keyring = await findKeyringByAddress(address);

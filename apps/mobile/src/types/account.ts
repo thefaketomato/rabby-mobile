@@ -31,7 +31,6 @@ type IDisplayedAccount = Required<DisplayedKeyring['accounts'][number]>;
 
 export type IDisplayedAccountWithBalance = IDisplayedAccount & {
   balance: number;
-  keyringId?: string;
   byImport?: boolean;
   publicKey?: string;
   hdPathBasePublicKey?: string;

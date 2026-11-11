@@ -152,10 +152,10 @@ const getStyles = (colors: AppColorsVariants) =>
 export const SettingKeystone: React.FC<{
   onDone: () => void;
   brand: string;
-  keystoneKeyringId?: string;
+  keystoneWalletId?: string;
   onAddAnother?: () => void;
   onRemoved?: () => void;
-}> = ({ onDone, brand, keystoneKeyringId, onAddAnother, onRemoved }) => {
+}> = ({ onDone, brand, keystoneWalletId, onAddAnother, onRemoved }) => {
   const { t } = useTranslation();
   const [, setLoading] = React.useState(false);
   const [hdPathOptions, setHdPathOptions] = React.useState<
@@ -172,7 +172,7 @@ export const SettingKeystone: React.FC<{
   React.useEffect(() => {
     const getHdPathOptions = async () => {
       const hdPathType = await apiKeystone.getCurrentUsedHDPathType(
-        keystoneKeyringId,
+        keystoneWalletId,
       );
 
       if (hdPathType === LedgerHDPathType.BIP44) {
@@ -213,19 +213,19 @@ export const SettingKeystone: React.FC<{
 
     getHdPathOptions().then(setHdPathOptions);
 
-    apiKeystone.getMaxAccountLimit(keystoneKeyringId).then(limit => {
+    apiKeystone.getMaxAccountLimit(keystoneWalletId).then(limit => {
       setDisableStartFrom((limit ?? MAX_ACCOUNT_COUNT) < MAX_ACCOUNT_COUNT);
     });
-  }, [t, keystoneKeyringId]);
+  }, [t, keystoneWalletId]);
 
   const reloadWallet = React.useCallback(async () => {
     try {
-      const info = await apiKeystone.getWallet(keystoneKeyringId);
+      const info = await apiKeystone.getWallet(keystoneWalletId);
       setWallet(info);
     } catch (error) {
       console.error('Failed to load Keystone wallet details', error);
     }
-  }, [keystoneKeyringId]);
+  }, [keystoneWalletId]);
 
   React.useEffect(() => {
     reloadWallet();
@@ -269,10 +269,7 @@ export const SettingKeystone: React.FC<{
     }
     setRenaming(true);
     try {
-      const name = await apiKeystone.renameWallet(
-        keystoneKeyringId,
-        aliasInput,
-      );
+      const name = await apiKeystone.renameWallet(keystoneWalletId, aliasInput);
       setWallet(prev =>
         prev
           ? {
@@ -291,7 +288,7 @@ export const SettingKeystone: React.FC<{
     } finally {
       setRenaming(false);
     }
-  }, [aliasInput, keystoneKeyringId, renaming, t]);
+  }, [aliasInput, keystoneWalletId, renaming, t]);
 
   const handleAddAnother = React.useCallback(() => {
     onDone?.();
@@ -312,7 +309,7 @@ export const SettingKeystone: React.FC<{
     }
     setRemoving(true);
     try {
-      await apiKeystone.removeAddressAndForgetDevice(keystoneKeyringId);
+      await apiKeystone.removeAddressAndForgetDevice(keystoneWalletId);
       setRemoveVisible(false);
       onDone?.();
       onRemoved?.();
@@ -323,7 +320,7 @@ export const SettingKeystone: React.FC<{
     } finally {
       setRemoving(false);
     }
-  }, [keystoneKeyringId, onDone, onRemoved, removing, t]);
+  }, [keystoneWalletId, onDone, onRemoved, removing, t]);
 
   const walletMeta = React.useMemo(() => {
     if (!wallet) {

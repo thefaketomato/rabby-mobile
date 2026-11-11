@@ -294,7 +294,7 @@ export const ImportSuccessScreen2024 = () => {
         ? SecretVault.storeMnemonicsPayload(mnemonicsPayload)
         : undefined,
       keyringId: state.keyringId,
-      keystoneKeyringId: state.keystoneKeyringId,
+      keystoneWalletId: state.keystoneWalletId,
       brandName: state.brandName,
       skipSuccessAnimation: true,
     };

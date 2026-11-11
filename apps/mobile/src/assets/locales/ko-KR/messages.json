@@ -1156,7 +1156,6 @@
       "backup-seed-phrase": "시드 구문 백업",
       "backupFailed": "백업에 실패했습니다. 다시 시도해 주세요",
       "source": "출처",
-      "wallet": "Wallet",
       "safeAddressListScreen": {
         "addSafeAddress": "Safe 지갑 추가"
       },
@@ -1467,28 +1466,6 @@
         "camera": {
           "title": "Keystone 연결",
           "description": "카메라 접근 권한을 허용하고 Keystone을 스캔하세요."
-        },
-        "select": {
-          "title": "Keystone wallets",
-          "description": "Choose a paired Keystone wallet to add or manage addresses.",
-          "addAnother": "Add another Keystone wallet",
-          "alreadyAdded": "This Keystone wallet is already added",
-          "fingerprint": "Fingerprint {{fingerprint}}",
-          "addressCount_one": "{{count}} address",
-          "addressCount_other": "{{count}} addresses",
-          "pairingFailed": "Failed to start Keystone pairing. Please try again."
-        },
-        "settings": {
-          "rename": "Rename",
-          "renameTitle": "Rename Keystone wallet",
-          "renamePlaceholder": "Wallet name",
-          "renamed": "Wallet name updated",
-          "renameFailed": "Failed to rename wallet",
-          "addAnother": "Add another Keystone wallet",
-          "remove": "Remove this Keystone wallet",
-          "removeTitle": "Remove this Keystone wallet?",
-          "removeContent": "This removes the wallet and its addresses from Rabby. You can pair it again later.",
-          "removeFailed": "Failed to remove wallet"
         }
       },
       "privateKey": {

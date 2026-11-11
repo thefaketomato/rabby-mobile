@@ -24,7 +24,6 @@ describe('useAccountsInfo', () => {
       address: '0xabc',
       index: 2,
       hdPathType: 'BIP44',
-      keyringId: 'aabbccdd:hd:m/44',
       walletName: 'Treasury',
       deviceFingerprint: 'aabbccdd',
     });
@@ -37,7 +36,6 @@ describe('useAccountsInfo', () => {
       expect(result.current?.walletName).toBe('Treasury');
     });
     expect(result.current).toMatchObject({
-      keyringId: 'aabbccdd:hd:m/44',
       walletName: 'Treasury',
       deviceFingerprint: 'aabbccdd',
       hdPathType: 'BIP44',
